@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가상으로라도 고양이 키워보기</title>
+    <style type="text/css">
+        @font-face {
+            font-family: 'TmoneyRoundWindExtraBold';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'TmoneyRoundWindRegular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindRegular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body, p, button {
+            margin:0; padding:0;
+            font-family:'TmoneyRoundWindExtraBold';
+        }
+        body {
+            background-color: skyblue;
+            justify-items: center;
+            overflow: hidden;
+        }
+        .sky{
+            height:300px;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .btn{
+            background-color: white;
+            color:black;
+            border: none;
+            height:40px;
+            font-size: 20px; font-weight: 500;
+            border-radius:20px;
+            width:130px; margin: 20px;
+        }
+        .bob{
+            color:white;
+            font-size:3em;
+            font-family: 'TmoneyRoundWindExtraBold';
+        }
+        .tool{
+            z-index:1000;
+            position: fixed;
+            top: 150px;
+            width: 100%;
+        }
+        .drag{
+            width:100px;
+            
+        }
+        .box{
+            float: left;
+            border: 2px solid red;
+            width:120px; height:130px;
+        }
+        .container {
+            /* background-color: rgb(199, 176, 146); */
+            display:grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+            width:100%;
+            margin:auto;
+        }
+        .container img {
+            width:100%;
+            padding:0;
+            margin-top:50px;
+        }
+
+        /* #cat1{
+            width:550px;
+            background: url("cat1.jpg");
+        }
+        #cat1:hover{
+            width:550px;
+            background: url("cat2.jpg");
+        } */
+        .imgswap img:last-child{display:none} 
+        .imgswap:hover img:first-child{display:none} 
+        .imgswap:hover img:last-child{display:inline-block}
+
+        .imgswap2 img:last-child{display:none} 
+        .imgswap2:hover img:first-child{display:none} 
+        .imgswap2:hover img:last-child{display:inline-block}
+
+        #blues{width:200px; height:200px;
+             left:0; top:0; position: absolute;  display: block;}
+        #apple{width:100px;
+             left:0; top:0; position: absolute;  display: block;}
+        #brocoli{width:100px;
+            left:0; top:0; position: absolute;  display: block;}
+        #salmon{width:100px;
+            left:0; top:0; position: absolute;  display: block;} 
+    </style>
+</head>
+<body>
+    
+    
+
+    <div class="sky">
+        <!-- <p class="bob">바아아아아아아압</p> -->
+        
+        <p class="bob" id="demo"></p>
+        <div class="tool">
+            <p class="notice">설명서<br>고양이가 좋아하는 박스는 3개밖에 없으니 신중히 배정해주세요! (박스 아래쪽을 잡아야해요)<br>사과, 브로콜리, 연어는 고양이 건강에 좋습니다. 먹여주세요!<br></p>
+            <button class="btn" onclick="myStartFunction()">밥 시간인가?</button> 
+            <button class="btn" onclick="myStopFunction()">이제 그만...</button>
+            <!-- <div class="box" ondrop="drop(event)" ondragover="dragEnter(event)">
+                <img class="drag" src="apple.png" draggable="true" ondragstart="drag(event)" display: block; position: absolute; >
+            </div>
+            <div class="box" ondrop="drop(event)" ondragover="dragEnter(event)"></div> -->
+            <img src="box.png" class="drag" id="blues" style="width: 300px;
+            left: 1150px; top: 2px; display: block; position: absolute; cursor: pointer;">
+            <img src="box.png" class="drag" id="blues" style="width: 300px;
+            left: 1150px; top: 2px; display: block; position: absolute; cursor: pointer;">
+            <img src="box.png" class="drag" id="blues" style="width: 300px;
+            left: 1150px; top: 2px; display: block; position: absolute; cursor: pointer;">
+            
+            
+            
+            <img class="drag" id="apple" src="apple.png" style="display: block; position: absolute; left:90px; top:50px; cursor:pointer;" >
+            <img class="drag" id="brocoli" src="brocoli.png" style="display: block; position: absolute; left:190px; top:50px; cursor:pointer;" >
+            <img class="drag" id="salmon" src="salmon.png" style="display: block; position: absolute; left:290px; top:50px; cursor:pointer;" >
+        </div>
+        
+    </div>
+    
+    <div class="container">
+        <div class="imgswap" > 
+            <img src="cat1.jpg" /> 
+            <img src="cat2.jpg" /> 
+        </div>
+        <div class="imgswap" > 
+            <img src="cat1.jpg" /> 
+            <img src="cat2.jpg" /> 
+        </div>
+        <div class="imgswap" > 
+            <img src="cat1.jpg" /> 
+            <img src="cat2.jpg" /> 
+        </div>
+        <div class="imgswap" > 
+            <img src="cat1.jpg" /> 
+            <img src="cat2.jpg" /> 
+        </div>
+        <div class="imgswap2" > 
+            <img src="cat3.jpg" /> 
+            <img src="cat4.jpg" /> 
+        </div>
+        <div class="imgswap2" > 
+            <img src="cat3.jpg" /> 
+            <img src="cat4.jpg" /> 
+        </div>
+        <div class="imgswap2" > 
+            <img src="cat3.jpg" /> 
+            <img src="cat4.jpg" /> 
+        </div>
+        <div class="imgswap2" > 
+            <img src="cat3.jpg" /> 
+            <img src="cat4.jpg" /> 
+        </div>
+        
+        <!-- <div class="imgswap" > 
+            <img src="cat1.jpg" /> 
+            <img src="cat2.jpg" /> 
+        </div>
+        <div class="imgswap" > 
+            <img src="cat1.jpg" /> 
+            <img src="cat2.jpg" /> 
+        </div>
+        <div class="imgswap" > 
+            <img src="cat1.jpg" /> 
+            <img src="cat2.jpg" /> 
+        </div>
+        <div class="imgswap" > 
+            <img src="cat1.jpg" /> 
+            <img src="cat2.jpg" /> 
+        </div>
+        <div class="imgswap2" > 
+            <img src="cat3.jpg" /> 
+            <img src="cat4.jpg" /> 
+        </div>
+        <div class="imgswap2" > 
+            <img src="cat3.jpg" /> 
+            <img src="cat4.jpg" /> 
+        </div>
+        <div class="imgswap2" > 
+            <img src="cat3.jpg" /> 
+            <img src="cat4.jpg" /> 
+        </div>
+        <div class="imgswap2" > 
+            <img src="cat3.jpg" /> 
+            <img src="cat4.jpg" /> 
+        </div> -->
+        
+    </div>
+
+
+    <!-- <div>
+        <img id="cat1" >
+        <img id="cat1" src="cat1.jpg">
+        <img id="cat1" src="cat1.jpg">
+        <img id="cat1" src="cat1.jpg">
+        
+    </div> -->
+
+    <script>
+        var myVar;
+
+        function myStartFunction() {
+        myVar = setInterval(alertFunc, 400, "First parameter");
+        }
+
+        function alertFunc(param1) {
+        document.getElementById("demo").innerHTML += "바아아아아압 ";
+
+        
+        }
+
+        function myStopFunction() {
+        clearInterval(myVar);
+        }
+
+
+        // function dragEnter(ev) {
+		// 	ev.preventDefault();
+		// }
+
+		// function drag(ev) {
+		// 	ev.dataTransfer.setData("text", ev.target.id);
+		// }
+
+		// function drop(ev) {
+		// 	ev.preventDefault();
+		// 	var data = ev.dataTransfer.getData("text");
+		// 	ev.target.appendChild(document.getElementById(data));
+		// }
+
+        //아래 코드를 삽입하면 drag 클래스가 적용된 객체들은 드래그가 가능합니다.
+	    (function(){
+		var d = false;
+		var target,dx,dy;
+		var t = document.getElementsByClassName("drag");
+		for(var i=0; i<t.length; i++){
+			t[i].style.display = "block";
+			t[i].style.position = "absolute";
+			t[i].style.cursor = "pointer";
+			t[i].ondragstart = function(e){e.preventDefault();};
+			t[i].onmousedown = function(e){ d = true; dx = e.offsetX; dy = e.offsetY; target = e.target;}
+			t[i].onmouseup = function(){ d = false;}
+			window.onmousemove = function(e){ 
+				if(d){ target.style.left = (e.clientX - dx) + "px";
+					target.style.top = (e.clientY - dy) + "px";}
+			}
+		}
+	    })();
+    </script>
+
+</body>
+</html>
