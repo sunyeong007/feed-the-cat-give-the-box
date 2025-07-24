@@ -1,0 +1,20 @@
+model Model
+	culture: ko-KR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: ko-KR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Sheet1"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.146.303.0 (25.08)+f0de80c4b4d26001de515b7705dc64bcef63235a
+
+ref table Sheet1
+ref table DateTableTemplate_c87b001f-7f0c-452d-962c-80dc4cd092a7
+ref table LocalDateTable_6fd7bf5b-d931-4963-ba39-71660961ff62
+
+ref cultureInfo ko-KR
+

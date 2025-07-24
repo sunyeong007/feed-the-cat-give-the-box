@@ -1,0 +1,118 @@
+table DateTableTemplate_c87b001f-7f0c-452d-962c-80dc4cd092a7
+	isHidden
+	isPrivate
+	lineageTag: 74cc6b19-ddce-4ad9-9405-86bb0b116fa4
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 89adb6f6-2d3c-46c0-bdf7-bc94d92a1b09
+		dataCategory: PaddedDateTableDates
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = User
+
+	column 연도 = YEAR([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 36948eb3-dc7e-490b-8832-7cc23ae19abd
+		dataCategory: Years
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Year
+
+	column MonthNo = MONTH([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4e381d9f-8770-4c60-ba57-b1f98c78eb7e
+		dataCategory: MonthOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = MonthNumber
+
+	column 월 = FORMAT([Date], "MMMM")
+		dataType: string
+		isHidden
+		lineageTag: 63ad8aa8-b712-4922-93d7-f3b7fc3f1fef
+		dataCategory: Months
+		summarizeBy: none
+		sortByColumn: MonthNo
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Month
+
+	column QuarterNo = INT(([MonthNo] + 2) / 3)
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e4ac2b10-9c2d-4cee-b1e6-56caff3f9c66
+		dataCategory: QuarterOfYear
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = QuarterNumber
+
+	column 분기 = "Qtr " & [QuarterNo]
+		dataType: string
+		isHidden
+		lineageTag: c8689504-aeec-4d8c-b333-19e3d0ed1e7e
+		dataCategory: Quarters
+		summarizeBy: none
+		sortByColumn: QuarterNo
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Quarter
+
+	column 일 = DAY([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 29a1b9c5-a48e-425c-b3ac-6092a6377fef
+		dataCategory: DayOfMonth
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+		annotation TemplateId = Day
+
+	hierarchy '날짜 계층'
+		lineageTag: c01f1666-29e4-45b9-9917-f296366fc529
+
+		level 연도
+			lineageTag: 3ea83b0b-4d54-41ce-a5be-15e78c3f14b7
+			column: 연도
+
+		level 분기
+			lineageTag: 16d30130-8ed1-4780-a3b3-ceaee856d1df
+			column: 분기
+
+		level 월
+			lineageTag: 6fffd529-2faf-4e84-a687-67e39bc03fdf
+			column: 월
+
+		level 일
+			lineageTag: da66d277-88ed-4939-bc1d-0b7b8845ad1c
+			column: 일
+
+		annotation TemplateId = DateHierarchy
+
+	partition DateTableTemplate_c87b001f-7f0c-452d-962c-80dc4cd092a7 = calculated
+		mode: import
+		source = Calendar(Date(2015,1,1), Date(2015,1,1))
+
+	annotation __PBI_TemplateDateTable = true
+
+	annotation DefaultItem = DateHierarchy
+
